@@ -1,0 +1,33 @@
+{% extends 'myapp/base.html' %}
+
+{% block titulo %}Lista de Vendedores{% endblock %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2>Lista de Vendedores</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vendedor in vendedores %}
+            <tr>
+                <td>{{ vendedor.nombre }}</td>
+                <td>{{ vendedor.apellido }}</td>
+                <td>{{ vendedor.email }}</td>
+                <td>{{ vendedor.telefono }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay vendedores registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
