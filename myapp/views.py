@@ -5,7 +5,7 @@ from django.db.models import Q
 
 # Create your views here.
 def index(request):
-    contex = {"mensaje":"Bienvenidos a la vista general de nuestros productos"}
+    contex = {"mensaje":"Bienvenidos a la página principal."}
     return render(request,"myapp/index.html",contex)
 
 def lista_productos(request):
