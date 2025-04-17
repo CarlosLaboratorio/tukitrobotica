@@ -1,0 +1,11 @@
+{% extends 'myapp/base.html' %}
+{% block titulo %}Agregar Cliente{% endblock %}
+
+{% block contenido %}
+<h2>Agregar nuevo cliente</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

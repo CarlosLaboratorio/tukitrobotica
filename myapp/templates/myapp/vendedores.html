@@ -5,6 +5,13 @@
 {% block contenido %}
 <div class="container mt-4">
     <h2>Lista de Vendedores</h2>
+    
+    <form method="get" class="mb-4">
+        <input type="text" name="q" class="form-control" placeholder="Buscar por nombre, descripción o categoría">
+    </form>
+    
+    <a href="{% url 'agregar_vendedor' %}" class="btn btn-success mb-3">Agregar Vendedor</a>
+
     <table class="table table-bordered">
         <thead>
             <tr>

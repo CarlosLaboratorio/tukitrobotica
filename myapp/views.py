@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Productos, Categoria, Clientes, Vendedores
-from .forms import ProductoForm
+from .forms import ProductoForm, ClienteForm, VendedorForm
 from django.db.models import Q
 
 # Create your views here.
@@ -38,3 +38,23 @@ def lista_clientes(request):
 def lista_vendedores(request):
     vendedores = Vendedores.objects.all()
     return render(request, 'myapp/vendedores.html', {'vendedores': vendedores})
+
+def agregar_cliente(request):
+    if request.method == 'POST':
+        form = ClienteForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('clientes')
+    else:
+        form = ClienteForm()
+    return render(request, 'myapp/agregar_cliente.html', {'form': form})
+
+def agregar_vendedor(request):
+    if request.method == 'POST':
+        form = VendedorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('vendedores')
+    else:
+        form = VendedorForm()
+    return render(request, 'myapp/agregar_vendedor.html', {'form': form})
