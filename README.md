@@ -9,7 +9,7 @@ Requisitos: Python (y Pip) y un editor de texto (VS Code).
 * python manage.py runserver
 
   Funcionalidades de la página hasta la tercera entrega
-  1. Ingreso a la página principal.
+  1. Ingreso a la página principal. El único modelo que se puede buscar por el momento es en la clase Productos.
   2. Puede accederse al menú Clientes donde se podrá ver una lista de los clientes e ingresar a un boton para el formulario agregar clientes.
   3. Puede accederse al menú Vendedores donde se podrá ver una lista de los vendedores e ingresar a un boton para el formulario agregar vendedores.
   4. Puede accederse al menú Productos donde se tendrá una lista de los productos y se podrá buscar los productos.
