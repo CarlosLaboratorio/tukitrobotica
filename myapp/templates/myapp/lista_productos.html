@@ -12,9 +12,9 @@
 <div class="row">
     {% for producto in productos %}
         <div class="col-md-4 mb-4">
-            <div class="card h-100">
+            <div class="card h-100" style="display: flex; justify-content: center; align-items: center;">
                 {% if producto.imagen %}
-                    <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                    <img src="{{ producto.imagen.url }}"  class="card-img-top" style="width: 50%; height: auto; object-fit: cover;" alt="{{ producto.nombre }}">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ producto.nombre }}</h5>
