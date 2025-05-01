@@ -1,7 +1,51 @@
-{% extends "myapp/base.html" %}
+{% extends 'myapp/base.html' %}
 
-{% block titulo %}Inicio - TuKitdeRobótica{% endblock %}
+{% block titulo %}Inicio | TuKitdeRobótica{% endblock %}
 
 {% block contenido %}
-    <p class="lead text-center">{{ mensaje }}</p>
+<div class="container text-center mt-5">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">{{ mensaje }}</h1>
+            <p class="col-md-8 fs-4 mx-auto">
+                Este sistema te permite gestionar productos, vendedores y clientes de manera sencilla. 
+                Encontrá sensores, placas, módulos y otros componentes para tus proyectos de electrónica y robótica.
+            </p>
+            <a href="{% url 'productos' %}" class="btn btn-primary btn-lg mt-3">Ver productos</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <i class="bi bi-people-fill display-4 text-primary"></i>
+                <h5 class="card-title mt-2">Clientes</h5>
+                <p class="card-text">Gestioná tus clientes y accedé a sus datos de forma rápida.</p>
+                <a href="{% url 'clientes' %}" class="btn btn-outline-primary">Ver clientes</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <i class="bi bi-person-badge-fill display-4 text-success"></i>
+                <h5 class="card-title mt-2">Vendedores</h5>
+                <p class="card-text">Mantené el registro actualizado de tus vendedores.</p>
+                <a href="{% url 'vendedores' %}" class="btn btn-outline-success">Ver vendedores</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <i class="bi bi-box-seam display-4 text-dark"></i>
+                <h5 class="card-title mt-2">Productos</h5>
+                <p class="card-text">Consultá y gestioná el stock de componentes disponibles.</p>
+                <a href="{% url 'productos' %}" class="btn btn-outline-dark">Ver productos</a>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
