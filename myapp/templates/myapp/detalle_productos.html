@@ -1,0 +1,27 @@
+{% extends 'myapp/base.html' %}
+{% block titulo %}Detalle Producto{% endblock %}
+
+{% block contenido %}
+<h2>Detalles del producto</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100" style="display: flex; justify-content: center; align-items: center;">
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}"  class="card-img-top" style="object-fit: cover;" alt="{{ producto.nombre }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="card-text">{{ producto.descripcion }}</p>
+                <p class="card-text"><strong>Precio:</strong> ${{ producto.precio }}</p>
+                <p class="card-text"><strong>Stock:</strong> {{ producto.stock_total }}</p>
+                <p class="card-text"><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
+                <p class="card-text">
+                    <a href="{% url 'editar_producto' producto.pk %}" class="btn btn-sm btn-warning">Cambiar</a>
+                    <a href="{% url 'eliminar_producto' producto.pk %}" class="btn btn-sm btn-danger">Borrar</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'productos' %}" class="btn btn-light mb-3">Volver</a>
+</form>
+{% endblock %}
