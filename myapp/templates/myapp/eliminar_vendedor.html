@@ -1,0 +1,11 @@
+{% extends 'myapp/base.html' %}
+{% block titulo %}Eliminar Vendedor{% endblock %}
+
+{% block contenido %}
+<h2>¿Seguro que querés eliminar al vendedor "{{ object.nombre }} {{ object.apellido }}"?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'vendedores' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'myapp/base.html' %}
+{% block contenido %}
+  <h2>¿Estás seguro de que querés eliminar "{{ object.nombre }}"?</h2>
+  <form method="post">{% csrf_token %}
+    <input type="submit" value="Sí, eliminar" class="btn btn-danger">
+    <a href="{% url 'productos' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}
