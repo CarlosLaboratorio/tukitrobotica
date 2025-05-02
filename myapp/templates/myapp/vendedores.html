@@ -19,6 +19,7 @@
                 <th>Apellido</th>
                 <th>Email</th>
                 <th>Teléfono</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,10 @@
                 <td>{{ vendedor.apellido }}</td>
                 <td>{{ vendedor.email }}</td>
                 <td>{{ vendedor.telefono }}</td>
+                <td>
+                    <a href="#" class="btn btn-sm btn-warning">Cambiar</a>
+                    <a href="#" class="btn btn-sm btn-danger">Borrar</a>
+                </td>
             </tr>
             {% empty %}
             <tr>
