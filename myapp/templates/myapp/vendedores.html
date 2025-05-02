@@ -30,8 +30,8 @@
                 <td>{{ vendedor.email }}</td>
                 <td>{{ vendedor.telefono }}</td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-warning">Cambiar</a>
-                    <a href="#" class="btn btn-sm btn-danger">Borrar</a>
+                    <a href="{% url 'verificar_clave_vendedor' vendedor.pk 'editar' %}" class="btn btn-sm btn-warning">Cambiar</a>
+                    <a href="{% url 'verificar_clave_vendedor' vendedor.pk 'eliminar' %}" class="btn btn-sm btn-danger">Borrar</a>
                 </td>
             </tr>
             {% empty %}
