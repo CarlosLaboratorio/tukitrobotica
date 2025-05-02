@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Productos, Categoria, Clientes, Vendedores
+from .models import Productos, Clientes, Vendedores
 from .forms import ProductoForm, ClienteForm, VendedorForm
 from django.db.models import Q
 from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -88,3 +89,52 @@ class ProductoDeleteView(DeleteView):
     model = Productos
     template_name = 'myapp/eliminar_producto.html'
     success_url = reverse_lazy('productos')
+    
+def verificar_clave_vendedor(request, pk, accion):
+    if request.method == 'POST':
+        clave = request.POST.get('clave')
+        if clave == 'admin123':
+            request.session[f'clave_validada_vendedor_{pk}'] = True
+            if accion == 'editar':
+                return redirect('editar_vendedor', pk=pk)
+            elif accion == 'eliminar':
+                return redirect('eliminar_vendedor', pk=pk)
+        else:
+            messages.error(request, 'Clave incorrecta.')
+
+    return render(request, 'myapp/verificar_clave.html', {'pk': pk, 'accion': accion})
+
+class VendedorUpdateView(UpdateView):
+    model = Vendedores
+    form_class = VendedorForm
+    template_name = 'myapp/editar_vendedor.html'
+    success_url = reverse_lazy('vendedores')
+    
+    def dispatch(self, request, *args, **kwargs):
+        vendedor_id = self.kwargs['pk']
+        if not request.session.get(f'clave_validada_vendedor_{vendedor_id}'):
+            return redirect(reverse('verificar_clave_vendedor', args=[vendedor_id, 'editar']))
+        return super().dispatch(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        vendedor_id = self.kwargs['pk']
+        if f'clave_validada_vendedor_{vendedor_id}' in self.request.session:
+            del self.request.session[f'clave_validada_vendedor_{vendedor_id}']
+        return super().form_valid(form)
+    
+class VendedorDeleteView(DeleteView):
+    model = Vendedores
+    template_name = 'myapp/eliminar_vendedor.html'
+    success_url = reverse_lazy('vendedores')
+
+    def dispatch(self, request, *args, **kwargs):
+        vendedor_id = self.kwargs['pk']
+        if not request.session.get(f'clave_validada_vendedor_{vendedor_id}'):
+            return redirect(reverse('verificar_clave_vendedor', args=[vendedor_id, 'eliminar']))
+        return super().dispatch(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        vendedor_id = self.kwargs['pk']
+        if f'clave_validada_vendedor_{vendedor_id}' in self.request.session:
+            del self.request.session[f'clave_validada_vendedor_{vendedor_id}']
+        return super().form_valid(form)

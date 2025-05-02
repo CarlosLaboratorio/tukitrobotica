@@ -12,4 +12,7 @@ urlpatterns = [
     path('detallepro/<int:pk>', views.ProductoDetailView.as_view() , name='detalle_productos'),
     path('editar_producto/<int:pk>/', views.ProductoUpdateView.as_view(), name='editar_producto'),
     path('eliminar_producto/<int:pk>/', views.ProductoDeleteView.as_view(), name='eliminar_producto'),
+    path('verificar-clave-vendedor/<int:pk>/<str:accion>/', views.verificar_clave_vendedor, name='verificar_clave_vendedor'),
+    path('editar_vendedor/<int:pk>/', views.VendedorUpdateView.as_view(), name='editar_vendedor'),
+    path('eliminar_vendedor/<int:pk>/', views.VendedorDeleteView.as_view(), name='eliminar_vendedor'),
 ]
