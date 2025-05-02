@@ -8,4 +8,5 @@ urlpatterns = [
     path('vendedores/', views.lista_vendedores, name='vendedores'),
     path('agregarc/', views.agregar_cliente, name='agregar_cliente'),
     path('agregarv/', views.agregar_vendedor, name='agregar_vendedor'),
+    path('acercade/', views.acerca_de_mi, name='acerca_de_mi'),
 ]
