@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Productos, Categoria, Clientes, Vendedores
 from .forms import ProductoForm, ClienteForm, VendedorForm
 from django.db.models import Q
+from django.views.generic import DetailView
+from django.views.generic.edit import UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 # Create your views here.
 def index(request):
@@ -70,3 +73,18 @@ def agregar_vendedor(request):
 def acerca_de_mi(request):
     return render(request, 'myapp/acerca_de_mi.html', {})
 
+class ProductoDetailView(DetailView):
+    model = Productos
+    template_name = 'myapp/detalle_productos.html'
+    context_object_name = 'producto'
+    
+class ProductoUpdateView(UpdateView):
+    model = Productos
+    template_name = 'myapp/editar_producto.html'
+    fields = ['nombre', 'descripcion', 'precio', 'stock_total', 'categoria', 'imagen']
+    success_url = reverse_lazy('productos')
+    
+class ProductoDeleteView(DeleteView):
+    model = Productos
+    template_name = 'myapp/eliminar_producto.html'
+    success_url = reverse_lazy('productos')
