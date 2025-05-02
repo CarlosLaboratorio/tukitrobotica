@@ -66,3 +66,7 @@ def agregar_vendedor(request):
     else:
         form = VendedorForm()
     return render(request, 'myapp/agregar_vendedor.html', {'form': form})
+
+def acerca_de_mi(request):
+    return render(request, 'myapp/acerca_de_mi.html', {})
+
