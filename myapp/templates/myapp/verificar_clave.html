@@ -1,0 +1,10 @@
+{% extends 'myapp/base.html' %}
+{% block contenido %}
+  <h3>Verificación requerida</h3>
+  <p>Ingresá la clave para {{ accion }} al vendedor.</p>
+  <form method="post">{% csrf_token %}
+      <input type="password" name="clave" class="form-control mb-3" placeholder="Clave de seguridad">
+      <button type="submit" class="btn btn-primary">Continuar</button>
+      <a href="{% url 'vendedores' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}
