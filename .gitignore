@@ -3,6 +3,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Ignorar archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Base de datos local
+db.sqlite3
+
+# Archivos subidos por usuarios
+Base\static\myapp
+
 # C extensions
 *.so
 
