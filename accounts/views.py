@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import RegistroForm, PerfilForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def ver_perfil(request):
@@ -11,6 +12,10 @@ def ver_perfil(request):
 
 @login_required
 def editar_perfil(request):
+   # try:
+   #     perfil = request.user.perfil
+   # except ObjectDoesNotExist:
+   #     perfil = Perfil.objects.create(user=request.user)
     user = request.user
     perfil = user.perfil
 
