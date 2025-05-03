@@ -1,0 +1,12 @@
+{% extends 'myapp/base.html' %}
+{% block titulo %}Editar Perfil{% endblock %}
+
+{% block contenido %}
+<h2>Editar Perfil</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ perfil_form.as_p }}
+    <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}

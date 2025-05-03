@@ -1,0 +1,18 @@
+{% extends 'myapp/base.html' %}
+{% block titulo %}Perfil de Usuario{% endblock %}
+
+{% block contenido %}
+<h2>Perfil de {{ request.user.username }}</h2>
+<p>Nombre: {{ request.user.first_name }}</p>
+<p>Apellido: {{ request.user.last_name }}</p>
+<p>Email: {{ request.user.email }}</p>
+<p>Cumpleaños: {{ request.user.perfil.cumpleaños }}</p>
+
+{% if request.user.perfil.avatar %}
+    <img src="{{ request.user.perfil.avatar.url }}" alt="Avatar" width="150">
+{% else %}
+    <p>Sin avatar</p>
+{% endif %}
+
+<a href="{% url 'editar_perfil' %}">Editar Perfil</a>
+{% endblock %}
