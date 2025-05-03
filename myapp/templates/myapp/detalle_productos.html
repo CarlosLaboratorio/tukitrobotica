@@ -3,6 +3,7 @@
 
 {% block contenido %}
 <h2>Detalles del producto</h2>
+<h5>Consulta a tu vendedor para la compra</h5>
 <form method="post" enctype="multipart/form-data">
     <div class="col-md-4 mb-4">
         <div class="card h-100" style="display: flex; justify-content: center; align-items: center;">
@@ -22,6 +23,23 @@
             </div>
         </div>
     </div>
-    <a href="{% url 'productos' %}" class="btn btn-light mb-3">Volver</a>
+    <a href="{% url 'productos' %}" class="btn btn-secondary mb-3">Volver</a>
+    <a href="{% url 'vendedores' %}" class="btn btn-primary mb-3">Vendedores</a>
+</form>
+
+    <h3>Comentarios</h3>
+<ul>
+    {% for comentario in comentarios %}
+        <li><strong>{{ comentario.nombre }}</strong> ({{ comentario.fecha|date:"d/m/Y H:i" }}): {{ comentario.texto }}</li>
+    {% empty %}
+        <li>No hay comentarios aún.</li>
+    {% endfor %}
+</ul>
+
+<h4>Dejar un comentario</h4>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 {% endblock %}
