@@ -15,4 +15,6 @@ urlpatterns = [
     path('verificar-clave-vendedor/<int:pk>/<str:accion>/', views.verificar_clave_vendedor, name='verificar_clave_vendedor'),
     path('editar_vendedor/<int:pk>/', views.VendedorUpdateView.as_view(), name='editar_vendedor'),
     path('eliminar_vendedor/<int:pk>/', views.VendedorDeleteView.as_view(), name='eliminar_vendedor'),
+    path('editar_cliente/<int:pk>/', views.ClienteUpdateView.as_view(), name='editar_cliente'),
+    path('eliminar_cliente/<int:pk>/', views.ClienteDeleteView.as_view(), name='eliminar_cliente'),
 ]

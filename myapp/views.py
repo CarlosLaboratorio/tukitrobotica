@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Productos, Clientes, Vendedores
-from .forms import ProductoForm, ClienteForm, VendedorForm
+from .models import Productos, Clientes, Vendedores, Comentario
+from .forms import ProductoForm, ClienteForm, VendedorForm, ComentarioForm
 from django.db.models import Q
 from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
@@ -79,6 +79,22 @@ class ProductoDetailView(DetailView):
     template_name = 'myapp/detalle_productos.html'
     context_object_name = 'producto'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comentarios'] = self.object.comentarios.order_by('-fecha')
+        context['form'] = ComentarioForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.producto = self.object
+            comentario.save()
+            return redirect('detalle_productos', pk=self.object.pk)
+        return self.render_to_response(self.get_context_data(form=form))
+    
 class ProductoUpdateView(UpdateView):
     model = Productos
     template_name = 'myapp/editar_producto.html'
@@ -138,3 +154,14 @@ class VendedorDeleteView(DeleteView):
         if f'clave_validada_vendedor_{vendedor_id}' in self.request.session:
             del self.request.session[f'clave_validada_vendedor_{vendedor_id}']
         return super().form_valid(form)
+    
+class ClienteDeleteView(DeleteView):
+    model = Clientes
+    template_name = 'myapp/eliminar_cliente.html'
+    success_url = reverse_lazy('clientes')
+    
+class ClienteUpdateView(UpdateView):
+    model = Clientes
+    form_class = ClienteForm
+    template_name = 'myapp/editar_cliente.html'
+    success_url = reverse_lazy('clientes')
