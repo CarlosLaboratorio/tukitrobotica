@@ -6,12 +6,22 @@ from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 
 # Create your views here.
+
+@login_required
+def vista_privada(request):
+    return render(request, 'myapp/vista_privada.html')
+
+@login_required(login_url='login')
 def index(request):
     contex = {"mensaje":"Bienvenidos a la página principal."}
     return render(request,"myapp/index.html",contex)
 
+@login_required(login_url='login')
 def lista_productos(request):
     query = request.GET.get('q')
     productos = Productos.objects.all()
@@ -25,6 +35,7 @@ def lista_productos(request):
 
     return render(request, 'myapp/lista_productos.html', {'productos': productos})
 
+@login_required(login_url='login')
 def agregar_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
@@ -35,6 +46,7 @@ def agregar_producto(request):
         form = ProductoForm()
     return render(request, 'myapp/agregar_producto.html', {'form': form})
 
+@login_required(login_url='login')
 def lista_clientes(request):
     query = request.GET.get('q')
     if query:
@@ -43,6 +55,7 @@ def lista_clientes(request):
         clientes = Clientes.objects.all()
     return render(request, 'myapp/clientes.html', {'clientes': clientes})
 
+@login_required(login_url='login')
 def lista_vendedores(request):
     query = request.GET.get('q')
     if query:
@@ -51,6 +64,7 @@ def lista_vendedores(request):
         vendedores = Vendedores.objects.all()
     return render(request, 'myapp/vendedores.html', {'vendedores': vendedores})
 
+@login_required(login_url='login')
 def agregar_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST, request.FILES)
@@ -61,6 +75,7 @@ def agregar_cliente(request):
         form = ClienteForm()
     return render(request, 'myapp/agregar_cliente.html', {'form': form})
 
+@login_required(login_url='login')
 def agregar_vendedor(request):
     if request.method == 'POST':
         form = VendedorForm(request.POST, request.FILES)
@@ -120,7 +135,7 @@ def verificar_clave_vendedor(request, pk, accion):
 
     return render(request, 'myapp/verificar_clave.html', {'pk': pk, 'accion': accion})
 
-class VendedorUpdateView(UpdateView):
+class VendedorUpdateView(UpdateView,LoginRequiredMixin, TemplateView):
     model = Vendedores
     form_class = VendedorForm
     template_name = 'myapp/editar_vendedor.html'
@@ -138,7 +153,7 @@ class VendedorUpdateView(UpdateView):
             del self.request.session[f'clave_validada_vendedor_{vendedor_id}']
         return super().form_valid(form)
     
-class VendedorDeleteView(DeleteView):
+class VendedorDeleteView(DeleteView, LoginRequiredMixin, TemplateView):
     model = Vendedores
     template_name = 'myapp/eliminar_vendedor.html'
     success_url = reverse_lazy('vendedores')
@@ -165,3 +180,6 @@ class ClienteUpdateView(UpdateView):
     form_class = ClienteForm
     template_name = 'myapp/editar_cliente.html'
     success_url = reverse_lazy('clientes')
+    
+class VistaProtegida(LoginRequiredMixin, TemplateView):
+    template_name = 'myapp/protegida.html'
