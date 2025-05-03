@@ -1,5 +1,5 @@
 from django import forms
-from .models import Productos, Clientes, Vendedores
+from .models import Productos, Clientes, Vendedores, Comentario
 
 class ProductoForm(forms.ModelForm):
     class Meta:
@@ -17,3 +17,11 @@ class VendedorForm(forms.ModelForm):
     class Meta:
         model = Vendedores
         fields = ['nombre', 'apellido', 'email', 'telefono']
+        
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['nombre', 'texto']
+        labels = {
+            'texto': 'Mensaje',
+        }
