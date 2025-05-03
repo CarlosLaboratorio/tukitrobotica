@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -64,3 +65,12 @@ class Stock(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombre} - {self.cantidad}"
+    
+class Comentario(models.Model):
+    producto = models.ForeignKey(Productos, on_delete=models.CASCADE, related_name='comentarios')
+    nombre = models.CharField(max_length=100)
+    texto = models.TextField()
+    fecha = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'Comentario de {self.nombre} sobre {self.producto.nombre}'
