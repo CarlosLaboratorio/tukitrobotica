@@ -64,12 +64,14 @@
                                 {% endif %}
                                 {{ user.username }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{% url 'ver_perfil' %}">Mi perfil</a></li>
-                                <li><a class="dropdown-item" href="{% url 'bandeja_entrada' %}">Mensajes</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
-                            </ul>
+                            <li class="nav-item dropdown">
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{% url 'ver_perfil' %}">Mi perfil</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'bandeja_entrada' %}">Mensajes</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                                </ul>
+                            </li>
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center" href="{% url 'login' %}">
