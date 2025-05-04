@@ -61,7 +61,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center" href="{% url 'ver_perfil' %}">
-                                    <i class="bi bi-person-badge me-2"></i> Mi perfil
+                                    {% if user.perfil.avatar %}
+                                        <img src="{{ user.perfil.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle me-2">
+                                    {% else %}
+                                        <i class="bi bi-person-badge me-2"></i>
+                                    {% endif %}
+                                    Mi perfil
                                 </a>
                             </li>
                         {% else %}
