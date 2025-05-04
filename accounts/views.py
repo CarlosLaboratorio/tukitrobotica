@@ -2,9 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import RegistroForm, PerfilForm
+from .forms import RegistroForm, PerfilForm, EditarUsuarioForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from accounts.models import Perfil
 
 @login_required
 def ver_perfil(request):
@@ -12,23 +13,30 @@ def ver_perfil(request):
 
 @login_required
 def editar_perfil(request):
-   # try:
-   #     perfil = request.user.perfil
-   # except ObjectDoesNotExist:
-   #     perfil = Perfil.objects.create(user=request.user)
     user = request.user
-    perfil = user.perfil
+    try:
+        perfil = user.perfil
+    except Perfil.DoesNotExist:
+        perfil = Perfil.objects.create(user=user)
 
     if request.method == 'POST':
-        user_form = RegistroForm(request.POST, instance=user)
+        user_form = EditarUsuarioForm(request.POST, instance=user)
         perfil_form = PerfilForm(request.POST, request.FILES, instance=perfil)
 
         if user_form.is_valid() and perfil_form.is_valid():
-            user_form.save()
+            user = user_form.save(commit=False)
+    
+            # Cambiar contraseña si fue ingresada
+            new_pass = user_form.cleaned_data.get("new_password1")
+            if new_pass:
+                user.set_password(new_pass)
+            user.save()
+    
             perfil_form.save()
+            messages.success(request, 'Perfil actualizado correctamente.')
             return redirect('ver_perfil')
     else:
-        user_form = RegistroForm(instance=user)
+        user_form = EditarUsuarioForm(instance=user)
         perfil_form = PerfilForm(instance=perfil)
 
     return render(request, 'accounts/editar_perfil.html', {
