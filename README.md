@@ -41,4 +41,4 @@ En conclusión del proyecto, también puede encontrarse un acceso a una presenta
 - Django 5.2
 
 ## Video Demostración
-https://youtu.be/
+https://drive.google.com/file/d/1FfqiEJn7A82mu0wXt1BrNGJ4GGyENVY_/view?usp=sharing
